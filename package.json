@@ -1,0 +1,19 @@
+{
+  "name": "computer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@11.21.0",
+  "type": "module",
+  "devDependencies": {
+    "turbo": "^2.10.12"
+  }
+}

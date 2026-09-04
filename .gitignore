@@ -8,3 +8,12 @@
 
 # pre-commit
 .pre-commit-config.yaml
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Turborepo
+.turbo
