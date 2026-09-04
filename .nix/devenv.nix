@@ -5,10 +5,22 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [ pkgs.git pkgs.skopeo ];
 
   # https://devenv.sh/languages/
-  # languages.rust.enable = true;
+  languages = {
+    javascript = {
+      enable = true;
+      package = pkgs.nodejs;
+      pnpm = {
+        enable = true;
+        install.enable = true;
+        package = pkgs.pnpm;
+      };
+    };
+    typescript.enable = true;
+    go.enable = true;
+  };
 
   # https://devenv.sh/processes/
   # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
@@ -24,6 +36,7 @@
   # https://devenv.sh/basics/
   enterShell = ''
     echo " ▸ devenv online"
+    echo "   node $(node --version)  ·  pnpm $(pnpm --version)"
   '';
 
   # https://devenv.sh/tasks/
