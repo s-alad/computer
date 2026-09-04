@@ -11,10 +11,10 @@
   languages = {
     javascript = {
       enable = true;
-      package = pkgs.nodejs;
+      package = pkgs.nodejs_latest;
       pnpm = {
         enable = true;
-        install.enable = true;
+        install.enable = false;
         package = pkgs.pnpm;
       };
     };
