@@ -4,7 +4,6 @@ export const colors = stylex.defineVars({
   bg: "#ffffff",
   fg: "#111111",
   border: "#d4d4d4",
-  borderFocus: "#4f46e5",
   muted: "#9ca3af",
 });
 

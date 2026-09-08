@@ -16,7 +16,6 @@ const styles = stylex.create({
     borderStyle: "solid",
     borderColor: {
       default: colors.border,
-      ":focus": colors.borderFocus,
     },
     borderRadius: radius.md,
     outline: "none",
