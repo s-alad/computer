@@ -1,0 +1,19 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #111213;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: #8ee87a;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e9f7c9;
+}
