@@ -1,20 +1,8 @@
-// Aurora — a self-contained port of the Claude Design "aurora" canvas engine:
-// a wind-warped fbm gradient with film grain, a faint grid, and regions that
-// collapse into pixel staircases. Rendered to a small offscreen buffer and
-// scaled up. Framework-free; App wires it to a <canvas> in a useEffect.
-
-// ---- Config (edit these) --------------------------------------------------
-
-// Cell / pixel-block size in CSS px. Smaller = finer aurora detail. (design: 20)
 export const CELL_SIZE = 20
-
-// Animation speed, 0..10. 0 freezes on a single rendered frame. (design: 1)
 export const SPEED = 1
 
 type PaletteName = 'chlorophyll' | 'crt' | 'magenta' | 'spectrum' | 'casey'
 
-// Palette rotation list. Comment out any line to drop that palette; on each
-// page load the next remaining palette in this list is used.
 const ROTATION: PaletteName[] = [
   'chlorophyll',
   'crt',
@@ -31,11 +19,9 @@ const PALETTES: Record<PaletteName, readonly string[]> = {
   casey: ['#050505', '#0e2a38', '#12538a', '#2f8a3c', '#3fb7e3', '#7fd9ff', '#e9e3a3', '#f6f2c8', '#b7df5a', '#ffffff'],
 }
 
-const STORAGE_KEY = 'salad.paletteIndex'
+const STORAGE_KEY = 'salad.pidx'
 const LATTICE = 4
 
-// Advance to the next palette in ROTATION on each page load (persisted in
-// localStorage). Falls back to a random pick when storage is unavailable.
 function pickRotatingPalette(): readonly string[] {
   const names = ROTATION.length ? ROTATION : (Object.keys(PALETTES) as PaletteName[])
   let idx: number
