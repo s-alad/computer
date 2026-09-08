@@ -7,6 +7,9 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "todo": "pnpm -F @salad/todo dev",
+    "paper": "pnpm -F @salad/paper dev",
+    "index": "pnpm -F @salad/index dev",
     "lint": "turbo lint",
     "lint:fix": "oxlint --fix",
     "type": "turbo type",
