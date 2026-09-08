@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as stylex from '@stylexjs/stylex'
 import { fonts } from '@salad/fonts/fonts.stylex'
-import { Aurora } from './aurora'
+import { rpalette } from './palettes'
 
 const styles = stylex.create({
   page: {
@@ -74,9 +74,48 @@ function App() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const aurora = new Aurora(canvas)
-    aurora.start()
-    return () => aurora.stop()
+
+    let worker: Worker | null = null
+    let ro: ResizeObserver | null = null
+    let cancelled = false
+    const dpr = (): number => Math.min(window.devicePixelRatio || 1, 2)
+
+    // A canvas can only transfer to an OffscreenCanvas once; deferring lets
+    // StrictMode's dev double-mount cancel the throwaway first pass.
+    queueMicrotask(() => {
+      if (cancelled) return
+      worker = new Worker(new URL('./aurora.worker.ts', import.meta.url), {
+        type: 'module',
+      })
+      const offscreen = canvas.transferControlToOffscreen()
+      worker.postMessage(
+        {
+          type: 'init',
+          canvas: offscreen,
+          palette: rpalette(),
+          width: canvas.clientWidth,
+          height: canvas.clientHeight,
+          dpr: dpr(),
+        },
+        [offscreen],
+      )
+      ro = new ResizeObserver(() => {
+        worker?.postMessage({
+          type: 'resize',
+          width: canvas.clientWidth,
+          height: canvas.clientHeight,
+          dpr: dpr(),
+        })
+      })
+      ro.observe(canvas)
+    })
+
+    return () => {
+      cancelled = true
+      ro?.disconnect()
+      worker?.postMessage({ type: 'stop' })
+      worker?.terminate()
+    }
   }, [])
 
   return (

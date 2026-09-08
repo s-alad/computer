@@ -1,53 +1,19 @@
-export const CELL_SIZE = 20
-export const SPEED = 1
+export const CELL_SIZE = 20 // px per pixel-block; smaller = finer
+export const SPEED = 1 // 0..10; 0 freezes
 
-type PaletteName = 'chlorophyll' | 'crt' | 'magenta' | 'spectrum' | 'casey'
-
-const ROTATION: PaletteName[] = [
-  'chlorophyll',
-  'crt',
-  'magenta',
-  'spectrum',
-  'casey',
-]
-
-const PALETTES: Record<PaletteName, readonly string[]> = {
-  chlorophyll: ['#04140c', '#07271a', '#0b3a24', '#12522e', '#1f7a3d', '#3fbf5a', '#8ee87a', '#e8f7c8', '#0b4f6b', '#12b0c9'],
-  crt: ['#050b12', '#08182a', '#0c2c46', '#123f63', '#1b6f9c', '#28a8d8', '#6fe3f2', '#eef6c8', '#136b4a', '#2fbf7a'],
-  magenta: ['#1a0418', '#2c0730', '#450b47', '#6b0f5f', '#a3106f', '#e0128f', '#ff5bc8', '#f7f0c8', '#f2e14a', '#ffffff'],
-  spectrum: ['#0b1a3a', '#12356e', '#1d6fa8', '#2aa7a0', '#3ddc6f', '#8fe36a', '#c9c6b6', '#f4a05a', '#e85c48', '#e7e6e1'],
-  casey: ['#050505', '#0e2a38', '#12538a', '#2f8a3c', '#3fb7e3', '#7fd9ff', '#e9e3a3', '#f6f2c8', '#b7df5a', '#ffffff'],
-}
-
-const STORAGE_KEY = 'salad.pidx'
 const LATTICE = 4
 
-function pickRotatingPalette(): readonly string[] {
-  const names = ROTATION.length ? ROTATION : (Object.keys(PALETTES) as PaletteName[])
-  let idx: number
-  try {
-    const prev = Number(localStorage.getItem(STORAGE_KEY))
-    idx = (Number.isFinite(prev) ? prev + 1 : 0) % names.length
-    localStorage.setItem(STORAGE_KEY, String(idx))
-  } catch {
-    idx = Math.floor(Math.random() * names.length)
-  }
-  const name = names[idx] ?? 'chlorophyll'
-  return PALETTES[name]
-}
-
 export class Aurora {
-  private readonly canvas: HTMLCanvasElement
-  private readonly ctx: CanvasRenderingContext2D
+  private readonly canvas: OffscreenCanvas
+  private readonly ctx: OffscreenCanvasRenderingContext2D
   private readonly pal: readonly string[]
-  private readonly ro: ResizeObserver
   private raf = 0
   private last = 0
   private t = 0
   private dpr = 1
 
-  private off: HTMLCanvasElement | null = null
-  private offCtx: CanvasRenderingContext2D | null = null
+  private off: OffscreenCanvas | null = null
+  private offCtx: OffscreenCanvasRenderingContext2D | null = null
   private img: ImageData | null = null
   private lut: Uint8ClampedArray | null = null
   private lutPal: readonly string[] | null = null
@@ -58,24 +24,27 @@ export class Aurora {
   private msk: Uint8Array | null = null
   private grainSeed = 2463534242
 
-  constructor(canvas: HTMLCanvasElement) {
+  constructor(canvas: OffscreenCanvas, pal: readonly string[]) {
     const ctx = canvas.getContext('2d')
     if (!ctx) throw new Error('Aurora: 2d canvas context unavailable')
     this.canvas = canvas
     this.ctx = ctx
-    this.pal = pickRotatingPalette()
-    this.ro = new ResizeObserver(() => this.resize())
+    this.pal = pal
+  }
+
+  setSize(width: number, height: number, dpr: number): void {
+    this.canvas.width = Math.round((width || 1200) * dpr)
+    this.canvas.height = Math.round((height || 800) * dpr)
+    this.dpr = dpr
+    this.draw()
   }
 
   start(): void {
-    this.resize()
-    this.ro.observe(this.canvas)
     this.raf = requestAnimationFrame(this.loop)
   }
 
   stop(): void {
     cancelAnimationFrame(this.raf)
-    this.ro.disconnect()
   }
 
   private readonly loop = (now: number): void => {
@@ -92,15 +61,6 @@ export class Aurora {
     if (now - this.last < 1000 / fps) return
     this.last = now
     this.t += sp > 8 ? 2 : 1
-    this.draw()
-  }
-
-  private resize(): void {
-    const c = this.canvas
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    c.width = Math.round((c.clientWidth || 1200) * dpr)
-    c.height = Math.round((c.clientHeight || 800) * dpr)
-    this.dpr = dpr
     this.draw()
   }
 
@@ -128,9 +88,7 @@ export class Aurora {
   private ensureBuffers(lw: number, lh: number): boolean {
     const cur = this.off
     if (cur && this.offCtx && this.img && cur.width === lw && cur.height === lh) return true
-    const off = document.createElement('canvas')
-    off.width = lw
-    off.height = lh
+    const off = new OffscreenCanvas(lw, lh)
     const ctx = off.getContext('2d')
     if (!ctx) return false
     this.off = off
