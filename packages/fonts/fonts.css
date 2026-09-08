@@ -1,0 +1,10 @@
+/* @font-face declarations — import this once per app to load the fonts.
+   The family NAMES here are what you reference via @salad/fonts/fonts.stylex. */
+
+@font-face {
+  font-family: "Coolvetica";
+  src: url("./files/coolvetica.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

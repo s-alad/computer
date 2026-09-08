@@ -17,7 +17,11 @@ export default defineConfig({
   plugins: [
     stylex({
       useCSSLayers: true,
-      include: ['src/**/*.{ts,tsx}', '../../packages/ui/src/**/*.{ts,tsx}'],
+      include: [
+        'src/**/*.{ts,tsx}',
+        '../../packages/ui/src/**/*.{ts,tsx}',
+        '../../packages/fonts/**/*.{ts,tsx}',
+      ],
       unstable_moduleResolution: { type: 'commonJS', rootDir: '../..' },
     }),
     react(),
