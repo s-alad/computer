@@ -1,6 +1,7 @@
 # CLAUDE.md
 
 - Work with me in a direct, simple, and well defined scoped way.
+- Code should be self commenting, do not add comments unless necessary or required to reveal new knowledge.
 - Lead with the answer or outcome.
 - Use plain language and briefly explain unfamiliar terms.
 - Avoid bloated explanations, plans, formatting, and unrelated suggestions.
