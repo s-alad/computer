@@ -27,7 +27,14 @@ importers:
         specifier: ^14.2.6
         version: 14.2.6(supports-color@7.2.0)
 
-  packages/tsconfig: {}
+  packages/tsconfig:
+    dependencies:
+      '@tsconfig/strictest':
+        specifier: ^2.0.8
+        version: 2.0.8
+      '@tsconfig/vite-react':
+        specifier: ^8.1.1
+        version: 8.1.1
 
   packages/ui:
     dependencies:
@@ -38,6 +45,9 @@ importers:
         specifier: ^0.19.0
         version: 0.19.0
     devDependencies:
+      '@salad/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/react':
         specifier: ^19.2.18
         version: 19.2.18
@@ -348,6 +358,12 @@ packages:
 
   '@stylexjs/stylex@0.19.0':
     resolution: {integrity: sha512-CnUFp7YMaDLDeemsWOfJgoC/gKM5P/yBNMcpJaE6ChJmXr7s0DJwSeGTTlHJcqqwN9OW1qGtmARWLFhGZN1pTA==}
+
+  '@tsconfig/strictest@2.0.8':
+    resolution: {integrity: sha512-XnQ7vNz5HRN0r88GYf1J9JJjqtZPiHt2woGJOo2dYqyHGGcd6OLGqSlBB6p1j9mpzja6Oe5BoPqWmeDx6X9rLw==}
+
+  '@tsconfig/vite-react@8.1.1':
+    resolution: {integrity: sha512-TdLtRE9INt7aupEC2yhem6y4RN8T+B4oa2OUYsay0ioxSDl8Q4yaq0k2yc86Gb2BEHjKp4RUxgIzqOTk4IQ8dQ==}
 
   '@turbo/darwin-64@2.10.12':
     resolution: {integrity: sha512-9nKgKoF6ZOUsM+or0OtNf+TTJSfGvDNP7ZFv/ZGWVwOSCkumyctQiTeHwB4UNljHTnC41AqylgbunLDHoccNrA==}
@@ -1072,6 +1088,10 @@ snapshots:
       css-mediaquery: 0.1.2
       invariant: 2.2.4
       styleq: 0.2.1
+
+  '@tsconfig/strictest@2.0.8': {}
+
+  '@tsconfig/vite-react@8.1.1': {}
 
   '@turbo/darwin-64@2.10.12':
     optional: true
