@@ -4,6 +4,10 @@
   "description": "",
   "private": true,
   "type": "module",
+  "scripts": {
+    "type": "tsc --noEmit",
+    "lint": "oxlint"
+  },
   "exports": {
     "./*": [
       "./src/*.tsx",
