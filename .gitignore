@@ -17,3 +17,7 @@ dist/
 
 # Turborepo
 .turbo
+
+# Local env files
+.env
+.env.*.local
