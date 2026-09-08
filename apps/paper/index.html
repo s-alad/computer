@@ -1,31 +1,13 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>paper.salad.computer</title>
-  <meta name="color-scheme" content="light dark" />
-  <style>
-    :root { --bg: #ffffff; --fg: #111111; --muted: #888888; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg: #0b0b0b; --fg: #f2f2f2; --muted: #777777; }
-    }
-    html, body { height: 100%; margin: 0; }
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font: 500 clamp(1.25rem, 6vw, 2.5rem)/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
-      display: grid;
-      place-items: center;
-    }
-    main { text-align: center; }
-    .muted { color: var(--muted); font-size: 0.5em; margin-top: 0.75em; }
-  </style>
-</head>
-<body>
-  <main>
-    paper
-    <div class="muted">paper.salad.computer</div>
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>paper</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
