@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as stylex from '@stylexjs/stylex'
 import { fonts } from '@salad/fonts/fonts.stylex'
 import { rpalette } from './palettes'
+import { Menu } from './menu'
 
 const styles = stylex.create({
   page: {
@@ -25,7 +26,7 @@ const styles = stylex.create({
     marginLeft: '28px',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: '24px',
     fontWeight: 400,
     fontSize: 'clamp(26px, 3vw, 40px)',
@@ -65,6 +66,11 @@ const styles = stylex.create({
     backgroundImage:
       'repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, rgba(0,0,0,0) 1px 4px)',
     pointerEvents: 'none',
+  },
+  group: {
+    display: 'grid',
+    gap: '18px',
+    justifyItems: 'start',
   },
 })
 
@@ -124,7 +130,10 @@ function App() {
       <div {...stylex.props(styles.fine)} />
       <div {...stylex.props(styles.coarse)} />
       <div {...stylex.props(styles.wordmark)}>
-        <div>SALAD.COMPUTER</div>
+        <div {...stylex.props(styles.group)}>
+          <div>SALAD.COMPUTER</div>
+          <Menu />
+        </div>
       </div>
     </div>
   )
