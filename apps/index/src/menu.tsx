@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
+import markUrl from './assets/mark.svg'
 
 // Glass menu config — edit these.
-const ITEMS = ['paper', 'todo', 'stocks']
+const ITEMS = ['index', 'paper', 'todo', 'stocks']
 const TINT = '#ffffff'
 const INTENSITY = 1
 const SELECT = 'bar' as 'glow' | 'bar' | 'accent'
@@ -61,14 +62,18 @@ function itemStyle(on: boolean, hovered: boolean, notLast: boolean): CSSProperti
 }
 
 const markerStyle: CSSProperties = {
-  width: '10px',
-  textAlign: 'center',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '12px',
   fontSize: SELECT === 'accent' ? '9px' : 'inherit',
   color: SELECT === 'accent' ? ACCENT : 'inherit',
 }
 
+const markImg: CSSProperties = { display: 'block', width: '12px', height: '12px' }
+
 export function Menu() {
-  const [selected, setSelected] = useState<string>(ITEMS[0] ?? 'paper')
+  const [selected, setSelected] = useState<string>(ITEMS[0] ?? 'index')
   const [hovered, setHovered] = useState<string | null>(null)
 
   return (
@@ -87,7 +92,9 @@ export function Menu() {
             onMouseLeave={() => setHovered(null)}
             style={itemStyle(on, hovered === label, i < ITEMS.length - 1)}
           >
-            <span style={markerStyle}>{on ? (SELECT === 'accent' ? '■' : '!') : ''}</span>
+            <span style={markerStyle}>
+              {on ? (SELECT === 'accent' ? '■' : <img src={markUrl} alt="" style={markImg} />) : null}
+            </span>
             <span>{label}</span>
           </a>
         )
