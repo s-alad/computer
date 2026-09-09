@@ -51,6 +51,7 @@ function itemStyle(on: boolean, hovered: boolean, notLast: boolean): CSSProperti
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
+    cursor: 'pointer',
     textDecoration: 'none',
     padding: '11px 28px 11px 12px',
     color: on ? (SELECT === 'accent' ? ACCENT : '#ffffff') : hovered ? '#ffffff' : '#c9cdd4',

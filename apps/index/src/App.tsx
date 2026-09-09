@@ -3,6 +3,7 @@ import * as stylex from '@stylexjs/stylex'
 import { fonts } from '@salad/fonts/fonts.stylex'
 import { rpalette } from './palettes'
 import { Menu } from './menu'
+import userIcon from './assets/user-icon.png'
 
 const styles = stylex.create({
   page: {
@@ -72,6 +73,20 @@ const styles = stylex.create({
     gap: '18px',
     justifyItems: 'start',
   },
+  userIcon: {
+    flexShrink: 0,
+    width: 'clamp(26px, 3vw, 40px)',
+    height: 'clamp(26px, 3vw, 40px)',
+    borderRadius: '50%',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'rgba(180, 245, 255, 0.75)',
+    boxShadow: '0 0 10px rgba(127, 217, 255, 0.55), 0 0 3px rgba(255, 255, 255, 0.6)',
+    objectFit: 'cover',
+    display: 'block',
+    pointerEvents: 'auto',
+    cursor: 'pointer',
+  },
 })
 
 function App() {
@@ -134,6 +149,7 @@ function App() {
           <div>SALAD.COMPUTER</div>
           <Menu />
         </div>
+        <img src={userIcon} alt="user" {...stylex.props(styles.userIcon)} />
       </div>
     </div>
   )
