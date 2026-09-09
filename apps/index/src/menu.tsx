@@ -10,7 +10,7 @@ const ACCENT = '#7fd9ff'
 const ITEM_GAP = 0
 const DIVIDERS = false as boolean
 
-const MENU_FONT = "'Coolvetica', system-ui, sans-serif"
+const MENU_FONT = "'Berkeley Mono', ui-monospace, monospace"
 
 function rgba(hex: string): (a: number) => string {
   const r = parseInt(hex.slice(1, 3), 16)
@@ -34,7 +34,7 @@ const box: CSSProperties = {
   lineHeight: 1,
   letterSpacing: '0.1em',
   textTransform: 'uppercase',
-  fontWeight: 400,
+  fontWeight: 700,
   background: `linear-gradient(90deg, ${tint(0.2 * INTENSITY)} 0%, ${tint(0.07 * INTENSITY)} 45%, ${tint(0)} 100%)`,
   borderLeft: `1px solid ${tint(Math.min(1, 0.7 * INTENSITY + 0.2))}`,
   boxShadow: `inset 14px 0 28px -14px ${tint(Math.min(1, 0.55 * INTENSITY))}`,
