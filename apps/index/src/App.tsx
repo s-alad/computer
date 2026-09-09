@@ -77,7 +77,7 @@ const styles = stylex.create({
     flexShrink: 0,
     width: 'clamp(26px, 3vw, 40px)',
     height: 'clamp(26px, 3vw, 40px)',
-    borderRadius: '50%',
+    borderRadius: '2px',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'rgba(180, 245, 255, 0.75)',
