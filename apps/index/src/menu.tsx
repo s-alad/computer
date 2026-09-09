@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
 
+// Glass menu config — edit these.
 const ITEMS = ['paper', 'todo', 'stocks']
 const TINT = '#ffffff'
-const INTENSITY = 1.4
+const INTENSITY = 1
 const SELECT = 'bar' as 'glow' | 'bar' | 'accent'
 const ACCENT = '#7fd9ff'
 const ITEM_GAP = 0
 const DIVIDERS = false as boolean
 
-const MONO = "'IBM Plex Mono', ui-monospace, monospace"
+const MENU_FONT = "'Coolvetica', system-ui, sans-serif"
 
 function rgba(hex: string): (a: number) => string {
   const r = parseInt(hex.slice(1, 3), 16)
@@ -28,12 +29,12 @@ const box: CSSProperties = {
   gap: `${ITEM_GAP}px`,
   minWidth: '240px',
   pointerEvents: 'auto',
-  fontFamily: MONO,
+  fontFamily: MENU_FONT,
   fontSize: '15px',
   lineHeight: 1,
   letterSpacing: '0.1em',
   textTransform: 'uppercase',
-  fontWeight: 500,
+  fontWeight: 400,
   background: `linear-gradient(90deg, ${tint(0.2 * INTENSITY)} 0%, ${tint(0.07 * INTENSITY)} 45%, ${tint(0)} 100%)`,
   borderLeft: `1px solid ${tint(Math.min(1, 0.7 * INTENSITY + 0.2))}`,
   boxShadow: `inset 14px 0 28px -14px ${tint(Math.min(1, 0.55 * INTENSITY))}`,
