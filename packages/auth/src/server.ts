@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth'
+import { openAPI } from 'better-auth/plugins'
 import { drizzleAdapter } from '@better-auth/drizzle-adapter'
 import * as schema from '@salad/db/schema'
 import type { Db } from '@salad/db/index'
@@ -15,5 +16,6 @@ export function createAuth(cfg: AuthConfig) {
     secret: cfg.secret,
     baseURL: cfg.baseURL,
     emailAndPassword: { enabled: true },
+    plugins: [openAPI()],
   })
 }
