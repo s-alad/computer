@@ -1,0 +1,1 @@
+{ "extends": "@salad/tsconfig/node.json", "include": ["src"] }

@@ -23,24 +23,18 @@ importers:
 
   apis/auth:
     dependencies:
-      '@better-auth/drizzle-adapter':
-        specifier: ^1.7.3
-        version: 1.7.3(@better-auth/core@1.7.3(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.4.0(zod@4.5.4))(jose@6.2.12)(kysely@0.29.5)(nanostores@1.5.3))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(@types/pg@8.23.1)(kysely@0.29.5)(pg@8.23.0))
       '@hono/node-server':
         specifier: ^2.1.1
         version: 2.1.1(hono@4.13.7)
-      better-auth:
-        specifier: ^1.7.3
-        version: 1.7.3(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@types/pg@8.23.1)(kysely@0.29.5)(pg@8.23.0))(pg@8.23.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      drizzle-orm:
-        specifier: ^0.45.2
-        version: 0.45.2(@types/pg@8.23.1)(kysely@0.29.5)(pg@8.23.0)
+      '@salad/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
+      '@salad/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       hono:
         specifier: ^4.13.7
         version: 4.13.7
-      pg:
-        specifier: ^8.23.0
-        version: 8.23.0
     devDependencies:
       '@salad/tsconfig':
         specifier: workspace:*
@@ -48,15 +42,9 @@ importers:
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
-      '@types/pg':
-        specifier: ^8.23.1
-        version: 8.23.1
       auth:
         specifier: ^1.7.3
         version: 1.7.3(@better-fetch/fetch@1.3.1)(better-call@1.4.0(zod@4.5.4))(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@types/pg@8.23.1)(kysely@0.29.5)(pg@8.23.0))(jose@6.2.12)(kysely@0.29.5)(nanostores@1.5.3)(pg@8.23.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      drizzle-kit:
-        specifier: ^0.31.10
-        version: 0.31.10
       tsx:
         specifier: ^4.23.13
         version: 4.23.13
@@ -237,6 +225,40 @@ importers:
       vite:
         specifier: ^8.2.2
         version: 8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)
+
+  packages/auth:
+    dependencies:
+      '@better-auth/drizzle-adapter':
+        specifier: ^1.7.3
+        version: 1.7.3(@better-auth/core@1.7.3(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-call@1.4.0(zod@4.5.4))(jose@6.2.12)(kysely@0.29.5)(nanostores@1.5.3))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(@types/pg@8.23.1)(kysely@0.29.5)(pg@8.23.0))
+      '@salad/db':
+        specifier: workspace:*
+        version: link:../db
+      better-auth:
+        specifier: ^1.7.3
+        version: 1.7.3(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@types/pg@8.23.1)(kysely@0.29.5)(pg@8.23.0))(pg@8.23.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+
+  packages/db:
+    dependencies:
+      drizzle-orm:
+        specifier: ^0.45.2
+        version: 0.45.2(@types/pg@8.23.1)(kysely@0.29.5)(pg@8.23.0)
+      pg:
+        specifier: ^8.23.0
+        version: 8.23.0
+    devDependencies:
+      '@salad/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/pg':
+        specifier: ^8.23.1
+        version: 8.23.1
+      drizzle-kit:
+        specifier: ^0.31.10
+        version: 0.31.10
+      typescript:
+        specifier: ^7.0.2
+        version: 7.0.2
 
   packages/fonts:
     dependencies:

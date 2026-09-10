@@ -4,9 +4,7 @@
   "compilerOptions": {
     "target": "ES2023",
     "module": "preserve",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "noEmit": true
-  },
+  }
 }
