@@ -26,7 +26,13 @@
   # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
 
   # https://devenv.sh/services/
-  # services.postgres.enable = true;
+  services.postgres = {
+    enable = true;
+    package = pkgs.postgresql_18;
+    listen_addresses = "127.0.0.1";
+    port = 5432;
+    initialDatabases = [ { name = "salad"; } ];
+  };
 
   # https://devenv.sh/scripts/
   scripts.hello.exec = ''
