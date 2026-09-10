@@ -54,6 +54,9 @@ importers:
 
   apps/index:
     dependencies:
+      '@salad/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@salad/fonts':
         specifier: workspace:*
         version: link:../../packages/fonts

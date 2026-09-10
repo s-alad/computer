@@ -3,6 +3,7 @@ import * as stylex from '@stylexjs/stylex'
 import { fonts } from '@salad/fonts/fonts.stylex'
 import { rpalette } from './palettes'
 import { Menu } from './menu'
+import { authClient } from './auth'
 import userIcon from './assets/user-icon.png'
 
 const styles = stylex.create({
@@ -80,17 +81,33 @@ const styles = stylex.create({
     borderRadius: '2px',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: 'rgba(180, 245, 255, 0.75)',
-    boxShadow: '0 0 10px rgba(127, 217, 255, 0.55), 0 0 3px rgba(255, 255, 255, 0.6)',
     objectFit: 'cover',
     display: 'block',
     pointerEvents: 'auto',
     cursor: 'pointer',
   },
+  iconGuest: {
+    borderColor: 'rgba(255, 255, 255, 0.85)',
+    boxShadow: '0 0 10px rgba(255, 255, 255, 0.5), 0 0 3px rgba(255, 255, 255, 0.65)',
+  },
+  iconAuthed: {
+    borderColor: 'rgba(74, 158, 255, 0.95)',
+    boxShadow: '0 0 12px rgba(74, 158, 255, 0.6), 0 0 3px rgba(140, 190, 255, 0.7)',
+  },
 })
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { data: session } = authClient.useSession()
+
+  async function onAvatar() {
+    if (session) {
+      await authClient.signOut()
+      return
+    }
+    const res = await authClient.signIn.passkey()
+    if (res?.error) await authClient.passkey.addPasskey({ createSession: true })
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -147,9 +164,15 @@ function App() {
       <div {...stylex.props(styles.wordmark)}>
         <div {...stylex.props(styles.group)}>
           <div>SALAD.COMPUTER</div>
-          <Menu />
+          {session ? <Menu /> : null}
         </div>
-        <img src={userIcon} alt="user" {...stylex.props(styles.userIcon)} />
+        <img
+          src={userIcon}
+          alt="user"
+          title={session ? session.user.name : ''}
+          onClick={onAvatar}
+          {...stylex.props(styles.userIcon, session ? styles.iconAuthed : styles.iconGuest)}
+        />
       </div>
     </div>
   )

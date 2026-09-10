@@ -21,7 +21,22 @@ export function createAuth(cfg: AuthConfig) {
     trustedOrigins: cfg.trustedOrigins,
     emailAndPassword: { enabled: true },
     plugins: [
-      passkey({ rpID: cfg.rpID, rpName: 'salad.computer', origin: cfg.trustedOrigins }),
+      passkey({
+        rpID: cfg.rpID,
+        rpName: 'salad.computer',
+        origin: cfg.trustedOrigins,
+        registration: {
+          requireSession: false,
+          resolveUser: async ({ ctx }) => {
+            const name = `salad-${crypto.randomUUID().slice(0, 8)}`
+            const user = await ctx.context.internalAdapter.createUser(
+              { name, email: `${crypto.randomUUID()}@passkey.local` },
+              { method: 'passkey' },
+            )
+            return { id: user.id, name: user.name }
+          },
+        },
+      }),
       openAPI(),
     ],
   })

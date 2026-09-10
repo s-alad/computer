@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@salad/auth": "workspace:*",
     "@salad/fonts": "workspace:*",
     "@stylexjs/stylex": "^0.19.0",
     "react": "^19.2.8",
